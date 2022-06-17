@@ -1,0 +1,29 @@
+@font-face {
+    font-family: 'Trebuchet MS', 'Arial', sans-serif;
+    src: url("/public/fonts/trebuchetms.woff2") format("woff2");
+    src: url("/public/fonts/trebuchetms.woff") format("woff");
+    src: url("/public/fonts/trebuchetms.ttf") format("ttf");
+    font-display: swap;
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Trebuchet MS', 'Arial', sans-serif;
+    src: url("/public/fonts/trebuchetms.woff2") format("woff2");
+    src: url("/public/fonts/trebuchetms.woff") format("woff");
+    src: url("/public/fonts/trebuchetms.ttf") format("ttf");
+    font-display: swap;
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Exo 2', 'Arial', sans-serif;
+    src: url("/public/fonts/Exo2-Thin.woff2") format("woff2");
+    src: url("/public/fonts/Exo2-Thin.woff") format("woff");
+    src: url("/public/fonts/Exo2-Thin.ttf") format("ttf");
+    font-display: swap;
+    font-weight: 100;
+    font-style: normal;
+}
