@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from 'react';
+import { useIsInternetExplorer } from 'hooks/useIsInternetExplorer';
 import { CardIntroText, IProduct } from 'types/products.types';
 
 import { CardOutro } from 'components/CardOutro';
@@ -21,6 +22,8 @@ export const ProductCard: React.FC<{ product: IProduct }> = ({ product }) => {
     const [isSelected, setIsSelected] = useState(false);
     const [isPainted, setIsPainted] = useState(false);
     const [introText, setIntroText] = useState(CardIntroText.Regular);
+
+    const isInternetExplorer = useIsInternetExplorer();
 
     const handleCardClick = useCallback(() => {
         if (!isAvailable) {
@@ -60,6 +63,7 @@ export const ProductCard: React.FC<{ product: IProduct }> = ({ product }) => {
                 onMouseEnter={handleCardMouseEnter}
                 isPainted={isPainted}
                 isAvailable={isAvailable}
+                isInternetExplorer={isInternetExplorer}
             >
                 <S.CardIntro
                     isPainted={introText === CardIntroText.Selected}

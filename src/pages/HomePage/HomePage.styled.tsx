@@ -8,7 +8,9 @@ export const Main = styled.main`
     justify-content: center;
 
     min-height: 100vh;
+    height: auto;
     min-width: ${BreakPoint.MobileLow};
+    box-sizing: border-box;
 
     font-family: ${FontFamily.Trebuchet};
     font-weight: 400;

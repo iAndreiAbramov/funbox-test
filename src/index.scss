@@ -2,8 +2,10 @@
 @import './reset.scss';
 
 body {
+    position: relative;
     margin: 0;
     min-width: 320px;
+    overflow: hidden;
 
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

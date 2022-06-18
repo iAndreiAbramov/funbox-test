@@ -1,13 +1,24 @@
 import { BreakPoint, FontColor, FontFamily } from 'constants/style-variables';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-export const ListWrapper = styled.section`
+export const ListWrapper = styled.section<{ isInternetExplorer: boolean }>`
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     padding-top: 36px;
     padding-bottom: 67px;
+
+    ${({ isInternetExplorer }) => {
+        if (isInternetExplorer) {
+            return css`
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            `;
+        }
+    }}
 `;
 
 export const ListContentWrapper = styled.div`
