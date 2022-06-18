@@ -3,6 +3,7 @@ import { IProduct } from 'types/products.types';
 export const products: IProduct[] = [
     {
         id: 1,
+        isAvailable: true,
         title: 'Нямушка',
         subtitle: 'с фуа-гра',
         amount: 10,
@@ -10,9 +11,11 @@ export const products: IProduct[] = [
         bonusValue: 1,
         bonusText: 'мышь в подарок',
         weight: 0.5,
+        outroTextSelected: 'Печень утки разварная с артишоками.',
     },
     {
         id: 2,
+        isAvailable: false,
         title: 'Нямушка',
         subtitle: 'с рыбой',
         amount: 40,
@@ -20,9 +23,11 @@ export const products: IProduct[] = [
         bonusValue: 2,
         bonusText: 'мыши в подарок',
         weight: 2,
+        outroTextSelected: 'Головы щучьи с чесноком да свежайшая сёмгушка.',
     },
     {
         id: 3,
+        isAvailable: true,
         title: 'Нямушка',
         subtitle: 'с курой',
         amount: 100,
@@ -31,5 +36,6 @@ export const products: IProduct[] = [
         bonusText: 'мышей в подарок',
         extraText: 'заказчик доволен',
         weight: 5,
+        outroTextSelected: 'Филе из цыплят с трюфелями в бульоне.',
     },
 ];

@@ -1,4 +1,9 @@
-import { BreakPoint, FontColor } from 'constants/style-variables';
+import {
+    BgColor,
+    Border,
+    BreakPoint,
+    FontColor,
+} from 'constants/style-variables';
 import styled from 'styled-components';
 
 export const CardOuterWrapper = styled.article`
@@ -39,16 +44,25 @@ export const CardOuterWrapper = styled.article`
     }
 `;
 
-export const CardInnerWrapper = styled.div`
+export const CardInnerWrapper = styled.div<{
+    isPainted: boolean;
+    isAvailable: boolean;
+}>`
     position: relative;
 
     min-height: 510px;
     padding: 21px 48px 0;
     background-color: #f2f2f2;
-    border: 4px solid #1698d9;
+    border: ${({ isPainted, isAvailable }) =>
+        !isAvailable
+            ? Border.CardUnavailable
+            : isPainted
+            ? Border.CardSelected
+            : Border.CardRegular};
     border-radius: 12px;
-
     clip-path: polygon(44px 0, 100% 0%, 100% 100%, 0 100%, 0 44px);
+
+    cursor: ${({ isAvailable }) => (isAvailable ? 'pointer' : 'auto')};
 
     &::after {
         content: '';
@@ -59,23 +73,38 @@ export const CardInnerWrapper = styled.div`
 
         width: 60px;
         height: 60px;
-        border-bottom: 4px solid #1698d9;
+        border-bottom: ${({ isPainted, isAvailable }) =>
+            !isAvailable
+                ? Border.CardUnavailable
+                : isPainted
+                ? Border.CardSelected
+                : Border.CardRegular};
 
         transform: rotate(-45deg);
     }
 `;
 
-export const CardIntro = styled.span`
+export const CardIntro = styled.span<{
+    isPainted: boolean;
+    isAvailable: boolean;
+}>`
     display: block;
     margin-bottom: 6px;
 
     font-weight: 400;
     font-size: 16px;
     line-height: 1;
-    color: ${FontColor.Grey};
+    color: ${({ isPainted, isAvailable }) =>
+        !isAvailable
+            ? FontColor.CardTextUnavailable
+            : isPainted
+            ? FontColor.CardIntroSelected
+            : FontColor.Grey};
+
+    opacity: ${({ isAvailable }) => (isAvailable ? 1 : 0.5)};
 `;
 
-export const CardTitle = styled.h3`
+export const CardTitle = styled.h3<{ isAvailable: boolean }>`
     display: flex;
     flex-direction: column;
 
@@ -84,19 +113,29 @@ export const CardTitle = styled.h3`
     font-weight: 700;
     font-size: 48px;
     line-height: 1.17;
-    color: ${FontColor.Black};
+    color: ${({ isAvailable }) =>
+        isAvailable ? FontColor.Black : FontColor.CardTextUnavailable};
+
+    opacity: ${({ isAvailable }) => (isAvailable ? 1 : 0.5)};
 `;
 
-export const CardSubtitle = styled.span`
+export const CardSubtitle = styled.span<{ isAvailable: boolean }>`
     font-weight: 700;
     font-size: 24px;
     line-height: 1.17;
-    color: ${FontColor.Black};
+    color: ${({ isAvailable }) =>
+        isAvailable ? FontColor.Black : FontColor.CardTextUnavailable};
+
+    opacity: ${({ isAvailable }) => (isAvailable ? 1 : 0.5)};
 `;
 
-export const CardInfo = styled.div`
+export const CardInfo = styled.div<{ isAvailable: boolean }>`
     display: flex;
     flex-direction: column;
+
+    color: ${({ isAvailable }) =>
+        isAvailable ? FontColor.Black : FontColor.CardTextUnavailable};
+    opacity: ${({ isAvailable }) => (isAvailable ? 1 : 0.5)};
 `;
 
 export const CardDescription = styled.div`
@@ -120,7 +159,7 @@ export const Description = styled.span`
     font-weight: 400;
 `;
 
-export const ImageWrapper = styled.div`
+export const ImageWrapper = styled.div<{ isAvailable: boolean }>`
     position: absolute;
     left: 0;
     bottom: 0;
@@ -128,9 +167,11 @@ export const ImageWrapper = styled.div`
 
     width: 100%;
     height: auto;
+
+    opacity: ${({ isAvailable }) => (isAvailable ? 1 : 0.5)};
 `;
 
-export const Label = styled.div`
+export const Label = styled.div<{ isPainted: boolean; isAvailable: boolean }>`
     position: absolute;
     bottom: 16px;
     right: 16px;
@@ -143,7 +184,12 @@ export const Label = styled.div`
     width: 80px;
     height: 80px;
 
-    background-color: #2ea8e6;
+    background-color: ${({ isPainted, isAvailable }) =>
+        !isAvailable
+            ? BgColor.LabelUnavailable
+            : isPainted
+            ? BgColor.LabelSelected
+            : BgColor.LabelRegular};
     border-radius: 50%;
 
     color: ${FontColor.Light};
@@ -157,27 +203,4 @@ export const LabelValue = styled.span`
 
 export const LabelUnit = styled.span`
     font-size: 21px;
-`;
-
-export const Outro = styled.div`
-    margin-top: 14px;
-
-    font-size: 13px;
-    line-height: 15px;
-    text-align: center;
-
-    color: ${FontColor.Light};
-`;
-
-export const OutroText = styled.span`
-    font-weight: 400;
-`;
-
-export const OutroLink = styled.a.attrs({ href: '#' })`
-    font-weight: 700;
-    color: ${FontColor.Link};
-
-    cursor: pointer;
-    text-decoration: underline;
-    text-decoration-style: dashed;
 `;

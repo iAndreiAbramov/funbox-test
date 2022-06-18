@@ -1,5 +1,7 @@
-import React from 'react';
-import { IProduct } from 'types/products.types';
+import React, { useCallback, useState } from 'react';
+import { CardIntroText, IProduct } from 'types/products.types';
+
+import { CardOutro } from 'components/CardOutro';
 
 import * as S from './ProductCard.styled';
 
@@ -13,16 +15,57 @@ export const ProductCard: React.FC<{ product: IProduct }> = ({ product }) => {
         bonusText,
         extraText,
         weight,
+        outroTextSelected,
+        isAvailable,
     } = product;
+    const [isSelected, setIsSelected] = useState(false);
+    const [isPainted, setIsPainted] = useState(false);
+    const [introText, setIntroText] = useState(CardIntroText.Regular);
+
+    const handleCardClick = useCallback(
+        () => setIsSelected((current) => !current),
+        [],
+    );
+
+    const handleCardMouseLeave = useCallback(() => {
+        if (introText === CardIntroText.Selected) {
+            setIntroText(CardIntroText.Regular);
+        }
+        if (isSelected) {
+            setIsPainted(true);
+        } else {
+            setIsPainted(false);
+        }
+    }, [isSelected, introText]);
+
+    const handleCardMouseEnter = useCallback(() => {
+        if (isPainted) {
+            setIntroText(CardIntroText.Selected);
+        }
+    }, [isPainted]);
+
     return (
         <S.CardOuterWrapper>
-            <S.CardInnerWrapper>
-                <S.CardIntro>Сказочное заморское яство</S.CardIntro>
-                <S.CardTitle>
+            <S.CardInnerWrapper
+                onClick={handleCardClick}
+                onMouseLeave={handleCardMouseLeave}
+                onMouseEnter={handleCardMouseEnter}
+                isPainted={isPainted}
+                isAvailable={isAvailable}
+            >
+                <S.CardIntro
+                    isPainted={introText === CardIntroText.Selected}
+                    isAvailable={isAvailable}
+                >
+                    {introText}
+                </S.CardIntro>
+                <S.CardTitle isAvailable={isAvailable}>
                     {title}
-                    <S.CardSubtitle>{subtitle}</S.CardSubtitle>
+                    <S.CardSubtitle isAvailable={isAvailable}>
+                        {subtitle}
+                    </S.CardSubtitle>
                 </S.CardTitle>
-                <S.CardInfo>
+                <S.CardInfo isAvailable={isAvailable}>
                     <S.CardDescription>
                         <S.DescriptionItem>
                             <S.Value>{amount}</S.Value>
@@ -39,7 +82,7 @@ export const ProductCard: React.FC<{ product: IProduct }> = ({ product }) => {
                         </S.DescriptionItem>
                     </S.CardDescription>
                 </S.CardInfo>
-                <S.ImageWrapper>
+                <S.ImageWrapper isAvailable={isAvailable}>
                     <img
                         src="/img/content/photo.png"
                         width="320"
@@ -48,17 +91,19 @@ export const ProductCard: React.FC<{ product: IProduct }> = ({ product }) => {
                         srcSet="/img/content/photo.png 1x, /img/content/photo@2x.png 2x"
                     />
                 </S.ImageWrapper>
-                <S.Label>
+                <S.Label isPainted={isPainted} isAvailable={isAvailable}>
                     <S.LabelValue>
                         {String(weight).replace(/\./, ',')}
                     </S.LabelValue>
                     <S.LabelUnit>кг</S.LabelUnit>
                 </S.Label>
             </S.CardInnerWrapper>
-            <S.Outro>
-                <S.OutroText>Чего сидишь? Порадуй котэ, &nbsp;</S.OutroText>
-                <S.OutroLink>купи.</S.OutroLink>
-            </S.Outro>
+            <CardOutro
+                isAvailable={isAvailable}
+                isPainted={isPainted}
+                outroTextSelected={outroTextSelected}
+                subtitle={subtitle}
+            />
         </S.CardOuterWrapper>
     );
 };

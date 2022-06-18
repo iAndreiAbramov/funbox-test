@@ -1,5 +1,11 @@
+export enum CardIntroText {
+    Regular = 'Сказочное заморское яство',
+    Selected = 'Котэ не одобряет?',
+}
+
 export interface IProduct {
     id: number;
+    isAvailable: boolean;
     title: string;
     subtitle: string;
     amount: number;
@@ -8,4 +14,5 @@ export interface IProduct {
     bonusValue?: number;
     bonusText?: string;
     extraText?: string;
+    outroTextSelected: string;
 }
