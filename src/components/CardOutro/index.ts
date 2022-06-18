@@ -1,0 +1,1 @@
+export { CardOutro } from './CardOutro';
