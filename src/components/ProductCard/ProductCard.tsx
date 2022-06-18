@@ -22,12 +22,17 @@ export const ProductCard: React.FC<{ product: IProduct }> = ({ product }) => {
     const [isPainted, setIsPainted] = useState(false);
     const [introText, setIntroText] = useState(CardIntroText.Regular);
 
-    const handleCardClick = useCallback(
-        () => setIsSelected((current) => !current),
-        [],
-    );
+    const handleCardClick = useCallback(() => {
+        if (!isAvailable) {
+            return;
+        }
+        setIsSelected((current) => !current);
+    }, [isAvailable]);
 
     const handleCardMouseLeave = useCallback(() => {
+        if (!isAvailable) {
+            return;
+        }
         if (introText === CardIntroText.Selected) {
             setIntroText(CardIntroText.Regular);
         }
@@ -36,13 +41,16 @@ export const ProductCard: React.FC<{ product: IProduct }> = ({ product }) => {
         } else {
             setIsPainted(false);
         }
-    }, [isSelected, introText]);
+    }, [isSelected, introText, isAvailable]);
 
     const handleCardMouseEnter = useCallback(() => {
+        if (!isAvailable) {
+            return;
+        }
         if (isPainted) {
             setIntroText(CardIntroText.Selected);
         }
-    }, [isPainted]);
+    }, [isPainted, isAvailable]);
 
     return (
         <S.CardOuterWrapper>
