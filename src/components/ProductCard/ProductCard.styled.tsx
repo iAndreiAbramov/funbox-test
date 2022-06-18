@@ -4,7 +4,7 @@ import {
     BreakPoint,
     FontColor,
 } from 'constants/style-variables';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const CardOuterWrapper = styled.article`
     display: flex;
@@ -47,6 +47,7 @@ export const CardOuterWrapper = styled.article`
 export const CardInnerWrapper = styled.div<{
     isPainted: boolean;
     isAvailable: boolean;
+    isInternetExplorer: boolean;
 }>`
     position: relative;
 
@@ -64,24 +65,30 @@ export const CardInnerWrapper = styled.div<{
 
     cursor: ${({ isAvailable }) => (isAvailable ? 'pointer' : 'auto')};
 
-    &::after {
-        content: '';
-        position: absolute;
-        z-index: 2;
-        top: -34px;
-        left: -32px;
+    ${({ isInternetExplorer, isPainted, isAvailable }) => {
+        if (!isInternetExplorer) {
+            return css`
+                &::after {
+                    content: '';
+                    position: absolute;
+                    z-index: 2;
+                    top: -34px;
+                    left: -32px;
 
-        width: 60px;
-        height: 60px;
-        border-bottom: ${({ isPainted, isAvailable }) =>
-            !isAvailable
-                ? Border.CardUnavailable
-                : isPainted
-                ? Border.CardSelected
-                : Border.CardRegular};
+                    width: 60px;
+                    height: 60px;
+                    border-bottom: ${() =>
+                        !isAvailable
+                            ? Border.CardUnavailable
+                            : isPainted
+                            ? Border.CardSelected
+                            : Border.CardRegular};
 
-        transform: rotate(-45deg);
-    }
+                    transform: rotate(-45deg);
+                }
+            `;
+        }
+    }}
 `;
 
 export const CardIntro = styled.span<{
@@ -163,7 +170,7 @@ export const ImageWrapper = styled.div<{ isAvailable: boolean }>`
     position: absolute;
     left: 0;
     bottom: 0;
-    z-index: -1;
+    z-index: 0;
 
     width: 100%;
     height: auto;

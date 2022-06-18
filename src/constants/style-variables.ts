@@ -30,4 +30,5 @@ export enum BgColor {
     LabelRegular = '#2ea8e6',
     LabelSelected = '#d91667',
     LabelUnavailable = '#b3b3b3',
+    CardBackground = '#f2f2f2',
 }
