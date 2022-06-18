@@ -181,6 +181,10 @@ Q8:
 https://cat-energy-styled-components.vercel.app/
 а заодно практикуюсь со Styled Components. Работа еще в процессе, но это уже больше, чем ничего.
 
+Также, возможно о моем текущем коде могут что-то рассказать тестовые задания, выполненные для других компаний:
+1. [Компания "Цифровые решения"](https://github.com/iAndreiAbramov/ds-test), https://ds-test.vercel.app/users.
+2. [Компания "Roox"](https://github.com/iAndreiAbramov/roox-test), https://roox-test-alpha.vercel.app/users.
+
 А вообще мой github [вот он](https://github.com/iAndreiAbramov), но я предупреждал, может оказаться не очень
 интересно :)
 
